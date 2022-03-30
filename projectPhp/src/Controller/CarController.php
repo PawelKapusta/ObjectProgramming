@@ -9,19 +9,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 #[Route('/car')]
 class CarController extends AbstractController
 {
+
+	public function __construct() {
+		$this->encoders = [new XmlEncoder(), new JsonEncoder()];
+		$this->normalizers = [new ObjectNormalizer()];
+		$this->serializer = new Serializer($this->normalizers, $this->encoders);
+	}
+
     #[Route('/', name: 'app_car_index', methods: ['GET'])]
     public function index(CarRepository $carRepository): Response
     {
-        return $this->render('car/index.html.twig', [
-            'cars' => $carRepository->findAll(),
-        ]);
+	    $returnedJson = $this->serializer->serialize($carRepository->findAll(), 'json');
+	    return new Response($returnedJson);
     }
 
-    #[Route('/new', name: 'app_car_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_car_new', methods: ['POST'])]
     public function new(Request $request, CarRepository $carRepository): Response
     {
         $car = new Car();
@@ -30,21 +40,16 @@ class CarController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $carRepository->add($car);
-            return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('car/new.html.twig', [
-            'car' => $car,
-            'form' => $form,
-        ]);
+        return new Response();
     }
 
     #[Route('/{id}', name: 'app_car_show', methods: ['GET'])]
     public function show(Car $car): Response
     {
-        return $this->render('car/show.html.twig', [
-            'car' => $car,
-        ]);
+        $returnedJson = $this->serializer->serialize($car, 'json');
+	return new Response($returnedJson);
     }
 
     #[Route('/{id}/edit', name: 'app_car_edit', methods: ['GET', 'POST'])]
@@ -55,22 +60,15 @@ class CarController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $carRepository->add($car);
-            return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('car/edit.html.twig', [
-            'car' => $car,
-            'form' => $form,
-        ]);
+        return new Response();
     }
 
     #[Route('/{id}', name: 'app_car_delete', methods: ['POST'])]
     public function delete(Request $request, Car $car, CarRepository $carRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
-            $carRepository->remove($car);
-        }
-
-        return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
+        $carRepository->remove($car);
+        return new Response();
     }
 }

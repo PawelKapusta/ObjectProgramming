@@ -9,19 +9,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 #[Route('/person')]
 class PersonController extends AbstractController
 {
+	public function __construct() {
+                $this->encoders = [new XmlEncoder(), new JsonEncoder()];
+                $this->normalizers = [new ObjectNormalizer()];
+                $this->serializer = new Serializer($this->normalizers, $this->encoders);
+        }
     #[Route('/', name: 'app_person_index', methods: ['GET'])]
     public function index(PersonRepository $personRepository): Response
     {
-        return $this->render('person/index.html.twig', [
-            'people' => $personRepository->findAll(),
-        ]);
+        $returnedJson = $this->serializer->serialize($personRepository->findAll(), 'json');
+
+        return new Response($returnedJson);
     }
 
-    #[Route('/new', name: 'app_person_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_person_new', methods: ['POST'])]
     public function new(Request $request, PersonRepository $personRepository): Response
     {
         $person = new Person();
@@ -30,21 +39,16 @@ class PersonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $personRepository->add($person);
-            return $this->redirectToRoute('app_person_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('person/new.html.twig', [
-            'person' => $person,
-            'form' => $form,
-        ]);
+        return new Response();
     }
 
     #[Route('/{id}', name: 'app_person_show', methods: ['GET'])]
     public function show(Person $person): Response
     {
-        return $this->render('person/show.html.twig', [
-            'person' => $person,
-        ]);
+        $returnedJson = $this->serializer->serialize($person, 'json');
+        return new Response($returnedJson);
     }
 
     #[Route('/{id}/edit', name: 'app_person_edit', methods: ['GET', 'POST'])]
@@ -55,22 +59,17 @@ class PersonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $personRepository->add($person);
-            return $this->redirectToRoute('app_person_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('person/edit.html.twig', [
-            'person' => $person,
-            'form' => $form,
-        ]);
+        return new Response();
     }
 
     #[Route('/{id}', name: 'app_person_delete', methods: ['POST'])]
     public function delete(Request $request, Person $person, PersonRepository $personRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$person->getId(), $request->request->get('_token'))) {
-            $personRepository->remove($person);
-        }
+        
+        $personRepository->remove($person);
 
-        return $this->redirectToRoute('app_person_index', [], Response::HTTP_SEE_OTHER);
+        return new Response();
     }
 }
