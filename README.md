@@ -5,3 +5,6 @@
 
 - Task 2 
   Simple CRUD in PHP
+
+- Task 3
+  Simple authorizer in Kotlin
