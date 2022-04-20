@@ -8,3 +8,6 @@
 
 - Task 3
   Simple authorizer in Kotlin
+  
+- Task 4
+  Get data about weather from API with GO
