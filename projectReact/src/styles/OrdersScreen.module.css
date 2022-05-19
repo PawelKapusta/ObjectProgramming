@@ -1,0 +1,11 @@
+.page {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.list {
+  width: 100%;
+  max-width: 760px;
+  background-color: lightgray;
+}
