@@ -11,3 +11,6 @@
   
 - Task 4
   Get data about weather from API with GO
+
+- Task 5
+  Client shop in React
