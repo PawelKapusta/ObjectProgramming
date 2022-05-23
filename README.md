@@ -14,3 +14,9 @@
 
 - Task 5
   Client shop in React
+  
+- Task 6
+  Vapor project in progres...
+
+- Task 7
+  Use projectReact to write tests in Cypress and done projectTests
