@@ -11,7 +11,7 @@ const defaultValue = {
 export const BasketContext = React.createContext(defaultValue);
 
 export const createOrder = async data => {
-  return await http.post("/orders", { data });
+  return await http.post("/orders", data);
 };
 
 export const BasketContextProvider = ({ children }) => {
