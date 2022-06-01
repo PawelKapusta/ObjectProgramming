@@ -20,3 +20,6 @@
 
 - Task 7
   Use projectReact to write tests in Cypress and done projectTests
+
+-Task 8 
+  SonarCloud checks are here https://github.com/PawelKapusta/SonarCloudOP 
