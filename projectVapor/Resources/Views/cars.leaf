@@ -1,0 +1,138 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Cars:</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container max-width">
+    <div class="row">
+     <form action="/car/create" method="post">
+     <ul type="1">
+        #for(car in carsList):
+            <li><b> ID cars:</b> #(car.id)</b> <b>Name:</b> #(car.name)  <b> : </b>  #(car.brand_id) <b> Price: </b>  #(car.price) <b> Weight:</b> #(car.weight)</li>
+        #endfor
+    </ul>
+    </form>
+    </div>
+</div>
+
+<!--form-->
+<section class="form" id="myForm">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1> Add new car</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/car/create" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Name
+                    <input type="text" class="form-control" name="name">
+                    Brand ID
+                    <input type="text" class="form-control" name="brand_id">
+                    Price
+                    <input type="text" class="form-control" name="price">
+                    Weight
+                    <input type="text" class="form-control" name="weight">
+                    <button type="submit" class="entryform submit">Add</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Delete</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+#for(car in carsList):
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/car/delete/#(car.id)" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Car ID
+                    <input type="text" name="id" class="form-control" value="#(car.id)" disabled>
+                    Name
+                    <input type="text" name="name" class="form-control" value="#(car.name)" disabled>
+                    Price
+                    <input type="text" name="price" class="form-control" value="#(car.price)" disabled>
+                    Weight
+                    <input type="text" name="weight" class="form-control" value="#(car.weight)" disabled>
+                    Brand
+                    <input type="text" name="brand_id" class="form-control" value="#(car.brand_id)" disabled>
+                    <button type="submit" class="entryform submit">Delete</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+#endfor
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Edit</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+#for(car in carsList):
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/car/update/#(car.id)" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Car ID
+                    <input type="text" name="id" class="form-control" value="#(car.id)" disabled>
+                    Name
+                    <input type="text" name="name" class="form-control" value="#(car.name)">
+                    Price
+                    <input type="text" name="price" class="form-control" value="#(car.price)">
+                    Weight
+                    <input type="text" name="weight" class="form-control" value="#(car.weight)">
+                    Brand
+                    <input type="text" name="brand_id" class="form-control" value="#(car.brand_id)">
+                    <button type="submit" class="entryform submit">Edit</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+#endfor
+
+
+<a href="/">Go to home</a>

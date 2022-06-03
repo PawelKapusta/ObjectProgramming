@@ -1,0 +1,17 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Object programming</title>
+</head>
+
+<body>
+    <h1>Create app</h1>
+    <h3>Please choose one of these links: </h3>
+    <nav>
+        <a href="customers">Customers</a> |
+        <a href="cars">Cars</a> |
+        <a href="brands">Brands</a>
+    </nav>
+    
+</body>
+</html>

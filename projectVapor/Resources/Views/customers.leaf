@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Customers:</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container max-width">
+    <div class="row">
+     <form action="/customer/create" method="post">
+     <ul type="1">
+        #for(customer in customersList):
+            <li> <b>Customer:</b> "#(customer.id)"  <b> First name: </b>  #(customer.first_name) <b>Last name:</b> #(customer.last_name) <b>Email:</b> #(customer.email)</li>
+        #endfor
+    </ul>
+    </form>
+    </div>
+</div>
+
+
+<!--form-->
+<section class="form" id="myForm">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Add new customer</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/customer/create" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    First name
+                    <input type="text" class="form-control" name="first_name">
+                    Last name
+                    <input type="text" class="form-control" name="last_name">
+                    Email
+                    <input type="email" class="form-control" name="email">
+                    <button type="submit" class="entryform submit">Add</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Delete</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+#for(customer in customersList):
+<div class="container max-width">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="/customer/delete/#(customer.id)" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Customer ID
+                    <input type="text" name="id" class="form-control" value="#(customer.id)" disabled>
+                    First name
+                    <input type="text" name="first_name" class="form-control" value="#(customer.first_name)" disabled>
+                    Last name
+                    <input type="text" name="last_name" class="form-control" value="#(customer.last_name)" disabled>
+                    Email
+                    <input type="email" name="email" class="form-control" value="#(customer.email)" disabled>
+                    <button type="submit" class="entryform submit">Delete</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+#endfor
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Edit</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+#for(customer in customersList):
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/customer/update/#(customer.id)" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Customer ID
+                    <input type="text" name="id" class="form-control" value="#(customer.id)" disabled>
+                    First name
+                    <input type="text" name="first_name" class="form-control" value="#(customer.first_name)">
+                    Last name
+                    <input type="text" name="last_name" class="form-control" value="#(customer.last_name)">
+                    Email
+                    <input type="email" name="email" class="form-control" value="#(customer.email)">
+                    <button type="submit" class="entryform submit">Edit</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+#endfor
+
+<a href="/">Go to home</a>

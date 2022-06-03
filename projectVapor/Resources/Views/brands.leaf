@@ -1,0 +1,126 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Brands:</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container max-width">
+    <div class="row">
+     <form action="/brand/create" method="post">
+     <ul type="1">
+        #for(brand in brandsList):
+            <li> <b> ID:</b> #(brand.id) <b>Brand:</b> #(brand.name) #(brand.description) </li>
+        #endfor
+    </ul>
+    </form>
+    </div>
+</div>
+
+
+<!--form-->
+<section class="form" id="myForm">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1> Add new brand: </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/brand/create" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Name
+                    <input type="text" class="form-control" name="name" >
+                    Description
+                    <input type="text" class="form-control" name="description">
+                    <button type="submit" class="entryform submit">Add</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Delete</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+#for(brand in brandsList):
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/brand/delete/#(brand.id)" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Brand ID
+                    <input type="text" name="id" class="form-control" value="#(brand.id)" disabled>
+                    Name
+                    <input type="text" name="name" class="form-control" value="#(brand.name)" disabled>
+                    Description
+                    <input type="text" name="description" class="form-control" value="#(brand.description)" disabled>
+                    <button type="submit" class="entryform submit">Delete</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+#endfor
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading">
+                <h1>Edit</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+#for(brand in brandsList):
+<div class="container max-width">
+    <div class="row">
+
+        <div class="col-md-12">
+            <form action="/brand/update/#(brand.id)" method="post">
+                <fieldset class="form-group">
+                    <!input name="input" type="hidden"/>
+                    Brand ID
+                    <input type="text" name="id" class="form-control" value="#(brand.id)" disabled>
+                    Name
+                    <input type="text" name="name" class="form-control" value="#(brand.name)" >
+                    Description
+                    <input type="text" name="description" class="form-control" value="#(brand.description)" >
+                    <button type="submit" class="entryform submit">Edit</button>
+                </fieldset>
+                
+            </form>
+        </div>
+    </div>
+</div>
+#endfor
+                
+<a href="/">Go to home</a>
